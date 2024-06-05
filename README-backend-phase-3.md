@@ -22,7 +22,7 @@ correctly.
 
 ```bash
 git remote get-url origin
-```
+``` 
 
 Make sure you are starting from the `main` branch and have committed all your
 code before this in the `main` branch.
