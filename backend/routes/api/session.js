@@ -1,15 +1,31 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
 
 
+
+const validateLogin = [
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a valid email or username.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a password.'),
+  handleValidationErrors
+];
+
 // 用户登录路由
 router.post(
-    '/', async (req, res, next) => {
+    '/', 
+    validateLogin,
+    async (req, res, next) => {
       const { credential, password } = req.body;// 从请求体中解构出凭证和密码
    // 查找用户，通过用户名或邮箱匹配
    //unscoped 是 Sequelize 中的方法，用于临时移除模型的默认作用域（scope），
