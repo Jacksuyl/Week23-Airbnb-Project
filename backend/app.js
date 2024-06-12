@@ -77,4 +77,15 @@ if (!isProduction) {
     });
   });
 
+  app.use((_req, _res, next) => {
+    if (!req.user.hasPermission) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.message = 'Forbidden';
+      next(err);
+    } else {
+      next();
+    }
+  });
+
   module.exports = app;
