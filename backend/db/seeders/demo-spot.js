@@ -1,3 +1,4 @@
+// demo-spot.js
 'use strict';
 
 module.exports = {

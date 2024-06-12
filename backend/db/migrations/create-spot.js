@@ -1,3 +1,4 @@
+// 20240611054146-create-spot.js
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
