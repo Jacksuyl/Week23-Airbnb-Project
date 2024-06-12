@@ -12,10 +12,12 @@ module.exports = {
     await queryInterface.addColumn(options, 'firstName', {
       type: Sequelize.STRING,
       allowNull: false,
+      defaultValue: ''  // 添加默认值
     });
     await queryInterface.addColumn(options, 'lastName', {
       type: Sequelize.STRING,
       allowNull: false,
+      defaultValue: ''  // 添加默认值
     });
   },
 

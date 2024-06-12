@@ -1,8 +1,7 @@
-// demo-review.js
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Reviews', [{
       userId: 1,
       spotId: 1,
@@ -13,7 +12,7 @@ module.exports = {
     }], {});
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Reviews', null, {});
   }
 };

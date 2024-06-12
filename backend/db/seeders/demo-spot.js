@@ -1,8 +1,7 @@
-// demo-spot.js
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Spots', [{
       address: '123 Disney Lane',
       city: 'San Francisco',
@@ -19,7 +18,7 @@ module.exports = {
     }], {});
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Spots', null, {});
   }
 };
