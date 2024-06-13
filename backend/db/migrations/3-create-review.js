@@ -1,5 +1,11 @@
 // 20240612014327-create-review.js
 'use strict';
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Reviews', {
@@ -35,9 +41,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }, options);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Reviews');
+    options.tableName = 'Reviews'; // 设置要删除的表名
+    return queryInterface.dropTable(options);
   }
 };
