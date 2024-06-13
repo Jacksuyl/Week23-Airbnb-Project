@@ -1,31 +1,35 @@
-//Reviews
 'use strict';
-const {Model, Validator} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
-
     static associate(models) {
-      Review.belongsTo(models.Spot, {foreignKey: 'spotId'})
-      Review.belongsTo(models.User, {foreignKey: 'userId'})
-      Review.hasMany(models.ReviewImage, {foreignKey: 'reviewId'})
+      Review.belongsTo(models.Spot, { foreignKey: 'spotId' });
+      Review.belongsTo(models.User, { foreignKey: 'userId' });
+      Review.hasMany(models.ReviewImage, { foreignKey: 'reviewId' });
     }
   }
   Review.init({
-    userId:{
-       type: DataTypes.INTEGER,
-       allowNull: false,
-       references: { model: 'Users' },
-       onDelete: "CASCADE"
+    reviewId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true, // 确保它是主键
+      autoIncrement: true, // 如果需要自动递增
     },
-    spotId:{
-       type: DataTypes.INTEGER,
-       allowNull: false,
-       references: { model: 'Spots' },
-       onDelete: "CASCADE"
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'Users', key: 'id' },
+      onDelete: "CASCADE"
     },
-    review:{
-       type: DataTypes.STRING,
-       allowNull: true,
+    spotId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'Spots', key: 'id' },
+      onDelete: "CASCADE"
+    },
+    review: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     stars: {
       type: DataTypes.INTEGER,
@@ -38,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Review',
+    tableName: 'Reviews'
   });
   return Review;
 };

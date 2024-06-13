@@ -1,6 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Spot = sequelize.define('Spot', {
+    spotId:{
+      type: DataTypes.INTEGER,
+      allowNull:false
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
+    
   }, {});
   Spot.associate = function(models) {
     Spot.belongsTo(models.User, { foreignKey: 'ownerId' });
