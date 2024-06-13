@@ -97,7 +97,8 @@ router.post('/login', validateLogin, async (req, res, next) => {
 // 获取当前用户信息
 router.get('/current', requireAuth, async (req, res) => {
   const { user } = req;
-  res.json({
+  if ( user ){
+    res.status(200).json({
     user: {
       id: user.id,
       firstName: user.firstName,
@@ -106,6 +107,11 @@ router.get('/current', requireAuth, async (req, res) => {
       username: user.username,
     }
   });
+} else{
+  res.status(200).json({
+    user: null
+  });
+}
 });
 
 module.exports = router;
