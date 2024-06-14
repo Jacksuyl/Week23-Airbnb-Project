@@ -2,7 +2,7 @@ const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 const router = express.Router();
@@ -44,5 +44,25 @@ router.post(
     });
   }
 );
+
+// 获取当前用户信息
+router.get('/current', requireAuth, async (req, res) => {
+  const { user } = req;
+  if ( user ){
+    res.status(200).json({
+    user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    }
+  });
+} else{
+  res.status(200).json({
+    user: null
+  });
+}
+});
 
 module.exports = router;
