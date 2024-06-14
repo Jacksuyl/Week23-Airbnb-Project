@@ -8,8 +8,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    return Spot.bulkCreate([{
+  async up(queryInterface, Sequelize) {
+    await Spot.bulkCreate([
+      {
       address: '123 Disney Lane',
       city: 'San Francisco',
       state: 'California',
@@ -20,9 +21,22 @@ module.exports = {
       description: 'Place where web developers are created',
       price: 123,
       ownerId: 1,  // 确保此用户ID在 Users 表中存在
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], { validate: true });
+     
+    },
+    {
+      address: '321 Disney Lane',
+      city: 'Los Francisco',
+      state: 'WA',
+      country: 'United States of America',
+      lat: 37.7645358,
+      lng: -122.4730327,
+      name: 'App Academy',
+      description: 'Place where web developers are created',
+      price: 123,
+      ownerId: 2,  // 确保此用户ID在 Users 表中存在
+
+    }
+  ], { validate: true });
   },
 
   down: async (queryInterface, Sequelize) => {

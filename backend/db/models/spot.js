@@ -1,10 +1,16 @@
 'use strict';
+const { Model, Validator } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  const Spot = sequelize.define('Spot', {
-    spotId:{
-      type: DataTypes.INTEGER,
-      allowNull:false
-    },
+  class Spot extends Model {
+    static associate(models) {
+      Spot.belongsTo(models.User, { foreignKey: 'ownerId' });
+      Spot.hasMany(models.Review, { foreignKey: 'spotId' });
+      Spot.hasMany(models.SpotImage, { foreignKey: 'spotId' });
+    }};
+    
+  Spot.init(
+    {
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,13 +50,10 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
-    
-  }, {});
-  Spot.associate = function(models) {
-    Spot.belongsTo(models.User, { foreignKey: 'ownerId' });
-    Spot.hasMany(models.Review, { foreignKey: 'spotId' });
-    Spot.hasMany(models.SpotImage, { foreignKey: 'spotId' });
-  };
+    },
+},{
+  sequelize,
+      modelName: 'Spot'
+});
   return Spot;
 };

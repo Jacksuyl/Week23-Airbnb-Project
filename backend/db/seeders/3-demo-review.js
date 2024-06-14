@@ -28,12 +28,10 @@ module.exports = {
       
       },
       {
-       
         userId: 3,
         spotId: 1,
         review: "Not bad.",
         stars: 3,
-     
       }
     ], { validate: true });
   },

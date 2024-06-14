@@ -7,8 +7,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Reviews', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -43,6 +43,7 @@ module.exports = {
       }
     }, options);
   },
+  
   down: (queryInterface, Sequelize) => {
     options.tableName = 'Reviews'; // 设置要删除的表名
     return queryInterface.dropTable(options);

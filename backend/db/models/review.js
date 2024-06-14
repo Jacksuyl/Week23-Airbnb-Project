@@ -9,12 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
-    reviewId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // 确保它是主键
-      autoIncrement: true, // 如果需要自动递增
-    },
+   
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -42,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Review',
-    tableName: 'Reviews'
+    //tableName: 'Reviews'
   });
   return Review;
 };
