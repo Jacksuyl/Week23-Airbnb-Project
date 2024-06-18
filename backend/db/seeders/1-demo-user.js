@@ -13,8 +13,8 @@ module.exports = {
     //await queryInterface.bulkInsert('Reviews', []);
     await User.bulkCreate([
       {
-        firstName: 'Demo',
-        lastName: 'User',
+        firstName: 'John',
+        lastName: 'Smith',
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
