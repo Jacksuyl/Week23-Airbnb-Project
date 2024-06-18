@@ -44,7 +44,7 @@ module.exports = {
     }, options);
   },
   
-  down: (queryInterface, Sequelize) => {
+  async down (queryInterface, Sequelize){
     options.tableName = 'Reviews'; // 设置要删除的表名
     return queryInterface.dropTable(options);
   }
