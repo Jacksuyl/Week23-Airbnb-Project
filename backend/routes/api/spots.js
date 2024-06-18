@@ -1,5 +1,7 @@
 const express = require('express');
 const { Spot, Review, SpotImage, User, sequelize } = require('../../db/models');
+const { route } = require('./session');
+const { requireAuth }= require ('../../utils/auth');
 const router = express.Router();
 
 // 获取所有 Spots
@@ -35,6 +37,43 @@ router.get('/', async (req, res) => {
 
   res.json({ Spots: spotList });
 });
+
+//get spots owned by current
+router.get('/current', requireAuth, async (req, res) => {
+  const currentUser = req.user.id;
+  const spots = await Spot.findAll({
+    where: { ownerId: currentUser},
+    include: [
+      {
+        model: Review,
+        attributes: []
+      },
+      {
+        model: SpotImage,
+        attributes: ['url']
+      }
+    ],
+    attributes:{
+      include: [
+        [
+          sequelize.fn('AVG', sequelize.col('Reviews.stars')),
+          'avgRating'
+        ]
+      ]
+    },
+    group: ['Spot.id', 'SpotImages.url']
+  });
+
+  const spotList = spots.map(spot => {
+    const spotData = spot.toJSON();
+    spotData.previewImage = spotData.SpotImages.length > 0 ? spotData.SpotImages[0].url : null;
+    delete spotData.SpotImages;
+    return spotData;
+  });
+
+  res.json({ Spots: spotList });
+});
+
 
 // 获取指定 Spot
 router.get('/:spotId', async (req, res) => {
