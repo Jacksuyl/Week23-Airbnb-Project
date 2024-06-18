@@ -1,5 +1,5 @@
 const express = require('express');
-const { Review, ReviewImage, User, Spot, SpotImage,sequelize  } = require('../../db/models')
+const { Booking, Review, ReviewImage, User, Spot, SpotImage,sequelize  } = require('../../db/models')
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
@@ -33,6 +33,7 @@ router.get('/current', requireAuth, async (req, res) => {
     return bookingData;
   });
 
+  
   res.json({ Bookings: bookingList });
 });
 

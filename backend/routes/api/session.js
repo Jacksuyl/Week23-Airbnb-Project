@@ -45,6 +45,12 @@ router.post(
   }
 );
 
+//logout
+router.delete('/', (req, res) => {
+  res.clearCookie('token');
+  return res.json({ message: 'Successfully logged out' });
+});
+
 // 获取当前用户信息
 router.get('/', async (req, res) => {
   const { user } = req;
