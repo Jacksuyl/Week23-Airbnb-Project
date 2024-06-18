@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ReviewImage.init({
     
-    reviewId: { // 外键字段
+    reviewId: { 
       type: DataTypes.INTEGER,
       references: { model: 'Reviews', key: 'id' },
       onDelete: 'CASCADE',

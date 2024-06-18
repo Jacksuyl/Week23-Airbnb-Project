@@ -5,7 +5,9 @@ module.exports = {
     await queryInterface.bulkInsert('SpotImages', [{
       spotId: 1,
       url: 'https://example.com/image.jpg',
-      preview: true
+      preview: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
